@@ -32,7 +32,7 @@
                 </ul>
             </div>
             <span class="navbar-text">
-                <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <a href="#" class="text-decoration-none" id="loginModalButton">
                     <i class="fa fa-sign-in"></i> Login
                 </a>
             </span>
@@ -50,7 +50,7 @@
                     <img src="./img/logo.png" class="img-fluid">
                 </div>
                 <div class="col-12 col-sm align-self-center">
-                    <a href="#" class="text-decoration-none btn btn-block nav-link btn-warning text-white" data-bs-toggle="modal" data-bs-target="#reserveTableModal">Reserve Table</a>
+                    <a href="#" class="text-decoration-none btn btn-block nav-link btn-warning text-white" id="reserveTableButton">Reserve Table</a>
                 </div>
             </div>
         </div>
@@ -97,7 +97,7 @@
                     <button class="carousel-control-next" type="button" data-bs-target="#mycarousel" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     </button>
-                    </a>
+                    <button class="btn btn-danger btn-sm" id="carouselButton"><i class="fa fa-pause"></i></button>
                 </div>
             </div>
         </div>
@@ -223,11 +223,11 @@
     <div id="loginModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg" role="content">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header login-header">
                     <h4 class="modal-title">Login </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body login-body">
                     <form class="row">
                         <div class="form-group col-sm-4">
                             <label class="sr-only" for="exampleInputEmail3">Email address</label>
@@ -258,11 +258,11 @@
     <div id="reserveTableModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg" role="content">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header reserve-table-header">
                     <h4 class="modal-title">Reserve a Table </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body reserve-table-body">
                     <form>
                         <div class="card-body">
                             <dl class="row">
@@ -308,8 +308,33 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('[data-bs-toggle="tooltip"]').tooltip();
+        $(document).ready(function() {
+            $("#mycarousel").carousel({interval:2000});
+
+            $("#carouselButton").click(function(){
+                if ($("#carouselButton").children('i').hasClass('fa-pause')) {
+
+                    $("#mycarousel").carousel('pause');
+                    $("#carouselButton").children('i').removeClass('fa-pause');
+                    $("#carouselButton").children('i').addClass('fa-play');
+                }else if($("#carouselButton").children('i').hasClass('fa-play')) {
+
+                    $("#mycarousel").carousel('cycle');
+                    $("#carouselButton").children('i').removeClass('fa-play');
+                    $("#carouselButton").children('i').addClass('fa-pause');
+                }
+
+            });
+
+            $("#reserveTableButton").click(function(){
+                $('#reserveTableModal').modal('toggle');
+            });
+
+            $("#loginModalButton").click(function(){
+                $('#loginModal').modal('toggle');
+            });
+
+
         });
     </script>
 </body>
